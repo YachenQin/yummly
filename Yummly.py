@@ -73,9 +73,13 @@ def create_output_file(recipe_items,file):
     count = 0
     if(recipe_items is None):
         return
+    
+    #which means the website go to the find nothing page
     if( len(recipe_items)==36):
         return
     for recipe_item in recipe_items:
+        
+        #the token to decide if this recipe is repeat or not
         judge = 0 
         if( "url" in recipe_item):
             recipeUrl = recipe_item["url"]
@@ -143,6 +147,7 @@ def create_output_file(recipe_items,file):
              tags=tags,
              recipeType = recipetype
              )
+        #if there are more than one elements(recipe name,author,recipe photo) are repeat before, we consider this recipe as repeat one and didn't add it to the output
         if(judge < 2):
             json_output = json.dumps(recipe_one,indent=2)
             file.write(json_output+"\n")
